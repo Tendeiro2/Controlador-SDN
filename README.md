@@ -1,6 +1,7 @@
-# Controlador-SDN
+# LTI-TL1
+É objetivo principal deste trabalho laboratorial conceber e implementar uma aplicação (app) que funcione como um controlador SDN para efetuar a gestão de um ou mais equipamentos de rede reais/virtuais, neste caso routers da Mikrotik com o sistema operativo RouterOS.  
 
-O objetivo principal deste Projeto é conceber e implementar uma aplicação (app) que funcione como um controlador SDN para efetuar a gestão de um ou mais equipamentos de rede reais/virtuais, neste caso routers da Mikrotik com o sistema operativo RouterOS.
+
 
 o Controlar mais do que um dispositivo com a mesma aplicação ☑
 
@@ -21,3 +22,5 @@ o Listar/criar/editar/apagar endereços IP ☑
 o Listar/criar/editar/apagar servidores de DHCP ☑
 
 o Ativar/desativar/configurar o servidor de DNS ☑
+
+

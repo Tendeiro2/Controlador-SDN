@@ -1,0 +1,237 @@
+Listar todas as interfaces do dispositivo
+
+/rest/interface
+_________________________________________________________
+
+Listar apenas as interfaces wireless
+
+rest/interface/wireless
+_________________________________________________________
+
+Listar/criar/editar/apagar interfaces bridge e respetivas portas associadas  
+
+Listar - GET - rest/interface/bridge
+
+Criar - PUT - rest/interface/bridge 
+{
+       "name": "bridgeTeste",
+	"arp": "disabled/enabled/local-proxy-arp/proxy-arp/replay-only"
+}
+
+Editar - PATCH - rest/interface/bridge/*{ID} 
+{
+        ".id": "*9",
+        "name": "bridgeTeste",
+        "arp": "replay-only"
+        
+ }
+
+Apagar - Delete - rest/interface/bridge/*{ID}
+_______________________________________________________
+
+Listar portos associados a interfaces bridges
+
+GET - /rest/interface/bridge/port
+
+Adicionar porto a uma interface bridge
+
+PUT - /rest/interface/bridge/port
+{
+    interface = interfaceName,
+    bridge = bridgeId
+    
+}
+Editar um porto 
+
+PATCH - rest/interface/port/*{ID}
+
+Apagar associação de porto a interface bridge
+
+DELETE - /rest/interface/bridge/port/*{ID}
+
+_________________________________________________________
+
+Criar/editar/apagar perfis de segurança para utilizar nas redes wireless 
+
+Listar - GET - rest/interface/wireless/security-profiles
+
+Criar - PUT - rest/interface/wireless/security-profiles
+{
+       "name": "profileTeste",
+	"authentication-types": "wpa-psk/wpa-eap/wpa-psk/wap-eap",
+	"mode": "dynamic-keys",
+	"wpa2-pre-shared-key": "testeteste"
+	"wpa-pre-shared-key": "",(o pre-shared-key depende do authentication type que usarem)
+}
+
+Editar - PATCH - rest/interface/wireless/security-profiles/*{ID}
+{
+       "name": "profileTeste",
+	"authentication-types": "wpa-psk/wpa-eap/wpa-psk/wap-eap",
+	"mode": "dynamic-keys",
+	"wpa2-pre-shared-key": "testeteste"
+	"wpa-pre-shared-key": "",(o pre-shared-key depende do authentication type que usarem)
+}
+
+Apagar - Delete - rest/interface/wireless/security-profiles/*{ID} 
+_________________________________________________________
+
+Ativar/desativar/configurar redes wireless 
+
+Ativar - POST - rest/interface/wireless/enable
+{
+	".id": "*123"
+}
+
+Desativar - POST - rest/interface/wireless/disable
+{
+  ".id": "*123"
+}
+
+Editar - PATCH - rest/interface/wireless/*{ID}
+{
+  "mode": "ap-bridge",
+  "band": "2ghz-b/g/n",
+  "channel-width": "20/40mhz-Ce",
+  "frequency": "2412",
+  "ssid": "Vassoura-Wi-Fi",
+  "security-profile": "profile1"
+  
+}
+
+_________________________________________________________
+
+Listar/criar/editar/apagar rotas estáticas 
+
+Listar - GET - rest/ip/route
+
+Criar - PUT - rest/ip/route
+{
+    "dst-address": "0.0.0.0/0",
+    "gateway": "10.20.139.254"
+}
+
+Editar - PATCH - rest/ip/route/*{ID}
+{
+    "dst-address": "0.0.0.0/0",
+    "gateway": "10.20.139.254"
+}
+
+Apagar - DELETE - rest/ip/route/*{ID}
+_________________________________________________________
+
+Listar/criar/editar/apagar endereços IP
+
+Listar - GET - rest/ip/address
+
+Criar - PUT - rest/ip/address 
+{
+   "address": "10.10.0.1/24",
+   "interface": "bridge1"
+}
+
+Editar - PATCH - rest/ip/address/*{ID}
+{"address": "10.10.0.2/24"}
+
+
+Apagar - DELETE - rest/ip/address/*{ID}
+_________________________________________________________
+
+Listar/criar/editar/apagar servidores de DHCP
+
+Listar - GET - rest/ip/dhcp-server
+
+Criar - PUT - rest/ip/dhcp-server
+{
+    "address-pool": "dhcp_pool0",
+    "interface": "bridge1",
+    "lease-time": "30m",
+    "name": "dhcp2"
+}
+
+Editar - PATCH - rest/ip/dhcp-server/*{ID}
+{
+    "address-pool": "dhcp_pool0",
+    "interface": "bridge1",
+    "lease-time": "30m",
+    "name": "dhcp2"
+}
+Apagar - DELETE - rest/ip/dhcp-server/*{ID}
+_________________________________________________________
+
+Address pool
+
+Listar - GET-  (
+
+Criar - PUT- rest/ip/pool
+{
+  "name": "dhcp_pool1",
+  "ranges": "192.168.1.100-192.168.1.200"
+}
+
+Editar - PATCH- rest/ip/pool/*{ID}
+{
+   "name": "dhcp_pool2",
+   "ranges": "192.168.2.100-192.168.2.200"
+}
+
+Apagar - DELETE- rest/ip/pool/*{ID}
+_________________________________________________________
+
+Ativar/desativar/configurar o servidor de DNS
+
+Listar - GET  -  /rest/ip/dns
+
+Editar - POST - /rest/ip/dns/set 
+{
+	"servers": "8.8.8.8, 1.1.1.1"
+}	
+Ativar e Desativar - POST - /rest/ip/dns/set 
+{
+	"allow-remote-requests": "true" ou "false",
+	"servers": "172.22.1.101,172.22.1.102",
+}	
+_________________________________________________________
+
+DNS Static 
+
+Listar - GET - /rest/ip/dns/static
+
+Criar - PUT - /rest/ip/dns/static 
+{
+    "address": "10.20.139.40",
+    "name": "test.com"
+}
+
+Editar - PATCH - /rest/ip/dns/static/*{ID} 
+{
+    "address": "10.20.139.41",
+    "name": "test2.com",
+    "disabled": "true"
+}
+
+___________________________________________________________
+
+WIREGUARD
+
+Listar - GET (todas interfaces do wireguard) - rest/interface/wireguard
+
+Listar - GET (todas peers) - rest/interface/wireguard/peers
+
+Criar - PUT - rest/interface/wireguard/peers
+{
+  "interface": "wireguard1",
+  "private-key": "auto",
+  "allowed-address": "::/0"
+}
+
+//ficheiro de configuração para o client e qr code
+POST - rest/interface/wireguard/peers/show-client-config
+{
+  ".id": "*9"
+}
+Apagar um peer - DELETE - rest/interface/wireguard/peers/*{ID} 
+__________________________________________________________
+
+
+
